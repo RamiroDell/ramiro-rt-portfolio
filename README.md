@@ -1,77 +1,72 @@
-# Ramiro Dell’Orto — Red Team Portfolio (Next.js + Tailwind + Framer Motion)
+# Portfolio Red Team — Ramiro Dell’Orto
 
-**Tema:** hacker/terminal, modo oscuro por defecto, tipografía monoespaciada.  
-**Stack:** Next.js (App Router), TailwindCSS, Framer Motion, Markdown (editable), API contact con Nodemailer.
+Sitio personal orientado a seguridad ofensiva (Red Teaming, pentesting y OSINT) con estética “hacker”. Construido con Next.js (App Router), Tailwind CSS (v4) y Framer Motion. Incluye Inicio, Sobre mí, Experiencia, Skills, Proyectos y Contacto, más un apartado opcional oculto.
 
-## 🚀 Rápido inicio
+## Tecnologías
+
+- Next.js 15 (App Router, `typedRoutes`)
+- React 18
+- Tailwind CSS v4
+- Framer Motion
+- lucide-react
+- Deploy recomendado: Vercel
+
+## Características
+
+- Tema oscuro, tipografía monoespaciada, acentos verde/rojo.
+- Animaciones sutiles (glitch, scanlines, micro‑interacciones).
+- Contenido editable en `/content` (Markdown).
+- Experiencia en línea de tiempo, proyectos expandibles, skills con “ver más”.
+- Contacto por correo/LinkedIn/GitHub.
+- Separación correcta server/client y rutas tipadas.
+
+## Estructura
+
+```
+app/                # Rutas (App Router)
+  about/            # Sobre mí
+  experience/       # Experiencia
+  skills/           # Skills
+  projects/         # Proyectos
+  contact/          # Contacto
+  root/             # Apartado oculto (opcional)
+components/         # UI: Hero, Timeline, Panels, Cards, etc.
+content/            # Markdown editable (sobre mí, experiencia, skills, proyectos)
+data/               # Datos tipados (proyectos, experiencia, site)
+lib/                # Utilidades (Markdown, etc.)
+public/             # Estáticos (favicon, og, CV)
+```
+
+## Desarrollo local
 
 ```bash
-# 1) Instalar dependencias
-pnpm i    # o npm i / yarn
-
-# 2) Variables de entorno (crear .env.local)
-cp .env.example .env.local
-# Completa SMTP_HOST/PORT/USER/PASS y CONTACT_TO/CONTACT_FROM
-
-# 3) Ejecutar en local
-pnpm dev  # o npm run dev / yarn dev
-
-# 4) Build & start
-pnpm build && pnpm start
-
-# 5) Deploy en Vercel
-# - Subir repo a GitHub
-# - Importar en Vercel
-# - Configurar variables de entorno en Settings > Environment Variables
+npm install
+npm run dev
 ```
 
-## ✏️ Editar tu CV (Markdown)
+Abrir `http://localhost:3000`.
 
-Todo el contenido está en `/content/*.md`. Solo edita esos archivos para actualizar tu CV:
-- `about.md` — Sobre mí / Resumen profesional
-- `experience.md` — Experiencia en formato Markdown
-- `skills.md` — Matriz de habilidades
-- `projects.md` — Proyectos con links
+Producción:
 
-También puedes ajustar enlaces y metadatos en `/data/site.ts`.
-
-## 📩 Formulario de Contacto (Nodemailer)
-
-El endpoint está en `/app/api/contact/route.ts` y utiliza **SMTP**. Define:
-
-- `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`
-- `CONTACT_TO` (destinatario)
-- `CONTACT_FROM` (remitente)
-- Opcional: `RECAPTCHA_SECRET` si quieres integrar reCAPTCHA (no incluido por defecto).
-
-> En Vercel, ve a *Project Settings → Environment Variables* y agrega estas claves.
-
-## 🧪 Tecnologías
-
-- Next.js (App Router, Server Components)
-- TailwindCSS (dark mode por clase)
-- Framer Motion (animaciones sutiles)
-- Remark + remark-html (render de Markdown)
-- Lucide-react (iconos minimalistas)
-
-## 🛠️ Estructura de carpetas
-
-```
-app/                # Rutas (App Router), layout y páginas
-  api/contact/      # Endpoint del formulario
-components/         # Componentes UI (Terminal, Timeline, Cards, etc.)
-content/            # Markdown editable
-data/               # Config del sitio (links, nombre, etc.)
-public/             # Assets estáticos (favicon, og)
-styles/             # (opcional) estilos adicionales
+```bash
+npm run build
+npm run start
 ```
 
-## 🔒 Seguridad
+## Deploy en Vercel
 
-- Validación básica con `zod` no requerida; aquí se hace validación manual simple.
-- HoneyPot `website` para bots.
-- Recomendado: agregar rate limiting (middleware) o reCAPTCHA si recibes spam.
+1. Crear proyecto → importar repositorio de GitHub.
+2. Node.js 20; Build Command: `next build`. Sin variables de entorno.
+3. Probar rutas (`/`, `/about`, `/experience`, `/skills`, `/projects`, `/contact`) y, si corresponde, `/root` → `/root/unlocked`.
 
-## 📄 Licencia
+## Personalización
 
-MIT — úsalo y modifícalo libremente.
+- Datos del sitio: `data/site.ts` (nombre, tagline, enlaces).
+- Markdown: `/content` (sobre mí, experiencia, skills, proyectos).
+- Estilos: `app/globals.css`.
+- Favicon/OG: `public/`.
+- Apartado “root”: ajustable o desactivable.
+
+## Licencia
+
+Uso personal. Reutilización permitida respetando licencias de dependencias.

@@ -258,7 +258,6 @@ a { @apply text-hacker-green hover:opacity-80 transition-opacity; }
 
   /* Tabla/menú hacker: columnas más compactas */
   .panel .grid.grid-cols-\[auto,1fr,auto\] {
-    grid-template-columns: 1fr;      /* todo en 1 columna */
   }
   .panel .grid.grid-cols-\[auto,1fr,auto\] > * + * {
     margin-top: 0.35rem;             /* espaciado vertical entre filas internas */
