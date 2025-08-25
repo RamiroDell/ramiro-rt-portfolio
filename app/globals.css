@@ -1,49 +1,276 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* app/globals.css */
 
-:root {
-  color-scheme: dark;
+/* Tailwind v4: una sola import */
+@import "tailwindcss";
+
+/* Tu tema hacker en v4 */
+@theme {
+  /* Colores personalizados -> clases: bg-*, text-*, border-* */
+  --color-hacker-bg: #0b0f10;
+  --color-hacker-panel: #101417;
+  --color-hacker-green: #00ff9c;
+  --color-hacker-red: #ff3864;
+  --color-hacker-cyan: #7df9ff;
+
+  /* Sombra personalizada -> clase: shadow-glow */
+  --shadow-glow: 0 0 10px rgba(0,255,156,0.3); /* v4 usa --shadow-* para shadow-* */ /* docs box-shadow v4 */
+  
+  /* Animaciones personalizadas -> clase: animate-cursor / animate-glitch */
+  --animate-cursor: cursor 1s steps(1) infinite;
+  --animate-glitch: glitch 1.5s ease-in-out infinite alternate;
+
+  @keyframes cursor {
+    0%,49% { opacity: 1 }
+    50%,100% { opacity: 0 }
+  }
+
+  @keyframes glitch {
+    0%   { clip-path: inset(0 0 0 0) }
+    20%  { clip-path: inset(10% 0 0 0) }
+    40%  { clip-path: inset(0 0 15% 0) }
+    60%  { clip-path: inset(5% 0 10% 0) }
+    80%  { clip-path: inset(0 0 5% 0) }
+    100% { clip-path: inset(0 0 0 0) }
+  }
 }
 
-html, body {
+/* Preferencia dark */
+:root { color-scheme: dark; }
+
+/* Base de la app */
+html, body { 
+  /* estos utilitarios YA existen por v4 + @theme arriba */
   @apply bg-hacker-bg text-gray-200 font-mono;
 }
 
 a { @apply text-hacker-green hover:opacity-80 transition-opacity; }
 
-/* Cursor parpadeante para el hero */
-.cursor {
-  @apply inline-block w-2 bg-hacker-green animate-cursor;
-}
+/* Cursor parpadeante */
+.cursor { @apply inline-block w-2 bg-hacker-green animate-cursor; }
 
-/* Glitch effect utility (aplicar sobre texto grande) */
-.glitch {
-  position: relative;
-  text-shadow: 0 0 2px rgba(0,255,156,0.4);
-}
+/* Efecto glitch (visual) */
+.glitch { position: relative; text-shadow: 0 0 2px rgba(0,255,156,0.4); }
 .glitch::before, .glitch::after {
-  content: attr(data-text);
+  content: attr(data-text); position: absolute; left: 0; top: 0; overflow: hidden;
+}
+.glitch::before { color: #ff3864; transform: translate(1px, -1px); animation: glitch 1.5s infinite alternate; }
+.glitch::after  { color: #7df9ff; transform: translate(-1px, 1px); animation: glitch 1.2s infinite alternate; }
+
+/* Panel y botón con tus tokens */
+.panel { @apply bg-hacker-panel/80 rounded-xl border border-white/5 shadow-glow; }
+.btn   { @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-hacker-green/40 text-hacker-green hover:bg-hacker-green/10 transition-colors; }
+
+/* ===========================
+   Markdown Hacker Styles
+   =========================== */
+
+/* Animación por bloque (se aplica a cada hijo directo del contenedor) */
+@theme {
+  --animate-fadeUp: fadeUp .45s ease-out both;
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* Contenedor con stagger aplicado vía inline style desde el componente */
+.prose-animated > * {
+  animation: var(--animate-fadeUp);
+}
+
+/* Prose personalizada estilo terminal */
+.prose-rt {
+  --tw-prose-body: theme(colors.gray.300);
+  --tw-prose-headings: theme(colors.white);
+  --tw-prose-links: theme(colors.hacker.green);
+  --tw-prose-bullets: theme(colors.hacker.green);
+  --tw-prose-quotes: theme(colors.gray.200);
+  --tw-prose-code: theme(colors.hacker.cyan);
+  --tw-prose-pre-bg: theme(colors.hacker.panel / 0.9);
+}
+
+/* Títulos con subrayado “láser” y leve glitch aura */
+.prose-rt h1,
+.prose-rt h2,
+.prose-rt h3 {
+  position: relative;
+  padding-bottom: 0.3rem;
+  text-shadow: 0 0 2px rgba(0,255,156,0.25);
+}
+.prose-rt h1::after,
+.prose-rt h2::after,
+.prose-rt h3::after {
+  content: "";
   position: absolute;
-  left: 0; top: 0;
-  overflow: hidden;
-}
-.glitch::before {
-  color: #ff3864;
-  transform: translate(1px, -1px);
-  animation: glitch 1.5s infinite alternate;
-}
-.glitch::after {
-  color: #7df9ff;
-  transform: translate(-1px, 1px);
-  animation: glitch 1.2s infinite alternate;
+  left: 0; right: 0; bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0,255,156,.6), transparent);
 }
 
-/* Panel */
-.panel {
-  @apply bg-hacker-panel/80 rounded-xl border border-white/5 shadow-glow;
+/* Listas estilo “árbol de directorios” */
+.prose-rt ul {
+  list-style: none;
+  padding-left: 0;
+}
+.prose-rt ul > li {
+  position: relative;
+  padding-left: 1.2rem;
+}
+.prose-rt ul > li::before {
+  content: "└──";
+  position: absolute;
+  left: 0;
+  color: var(--color-hacker-green);
+  opacity: 0.9;
 }
 
-.btn {
-  @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-hacker-green/40 text-hacker-green hover:bg-hacker-green/10 transition-colors;
+/* Blockquote con barra verde y leve glow */
+.prose-rt blockquote {
+  position: relative;
+  border-left: 3px solid rgba(0,255,156,.5);
+  background: rgba(16, 20, 23, 0.6);
+  padding: 0.8rem 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(0,255,156,0.08);
+}
+
+/* Código inline y bloques */
+.prose-rt code {
+  background: rgba(16,20,23,.8);
+  border: 1px solid rgba(255,255,255,.06);
+  padding: .15rem .35rem;
+  border-radius: .35rem;
+  color: var(--color-hacker-cyan);
+}
+.prose-rt pre {
+  background: rgba(16,20,23,.9);
+  border: 1px solid rgba(255,255,255,.06);
+  box-shadow: 0 0 10px rgba(0,255,156,0.06);
+  border-radius: .6rem;
+}
+
+/* Enlaces con brillo */
+.prose-rt a {
+  text-decoration: none;
+  transition: opacity .2s ease;
+}
+.prose-rt a:hover { opacity: .85; }
+
+/* Tablas (por si algún día las usás en el md) */
+.prose-rt table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .95rem;
+}
+.prose-rt th,
+.prose-rt td {
+  border: 1px solid rgba(255,255,255,.06);
+  padding: .5rem .65rem;
+}
+.prose-rt thead th {
+  background: rgba(16,20,23,.7);
+  color: #fff;
+}
+
+/* ===== Cursor del hero (más grande y con glow) ===== */
+.cursor {
+  display: inline-block;
+  width: 10px;           /* grosor */
+  height: 1.2em;         /* alto relativo a la línea */
+  margin-left: 2px;
+  background: var(--color-hacker-green, #00ff9c);
+  box-shadow: 0 0 8px rgba(0,255,156,0.6);
+  border-radius: 2px;
+  vertical-align: -2px;  /* baja un pelín para alinearlo con el texto */
+  animation: cursorBlink .8s steps(1) infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* Variantes de color para el cursor del hero */
+.cursor-green {
+  background: var(--color-hacker-green, #00ff9c);
+  box-shadow: 0 0 8px rgba(0,255,156,0.6);
+}
+
+.cursor-red {
+  background: var(--color-hacker-red, #ff3864);
+  box-shadow: 0 0 8px rgba(255,56,100,0.6);
+}
+
+/* (por si algún estilo externo pisa el alto) aseguramos tamaño inline */
+.cursor {
+  display: inline-block;
+  width: 10px;
+  height: 1.2em;
+  margin-left: 2px;
+  border-radius: 2px;
+  vertical-align: -2px;
+  animation: cursorBlink .8s steps(1) infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* =========================
+   Mobile polish (safe)
+   ========================= */
+@media (max-width: 640px) {
+  /* Botones más cómodos al tacto */
+  .btn {
+    padding: 0.75rem 1.25rem;        /* py-3 px-5 */
+    font-size: 0.95rem;
+    line-height: 1.1;
+  }
+
+  /* Paneles con respiración extra */
+  .panel {
+    padding: 1rem;                   /* p-4 */
+    border-radius: 0.9rem;
+  }
+
+  /* Tipografías grandes ajustadas */
+  h1 { font-size: 1.4rem; }
+  h2 { font-size: 1.2rem; }
+  h3 { font-size: 1.05rem; }
+
+  /* Texto base un poquito más grande para legibilidad */
+  body { font-size: 0.975rem; }
+
+  /* Gaps más chicos para que todo entre sin scroll excesivo */
+  .grid, .space-y-6, .space-y-8 {
+    row-gap: 1rem !important;
+  }
+
+  /* Cursor: más fino y bajo para no tapar texto */
+  .cursor,
+  .rt-cursor {
+    width: 6px;
+    height: 1em;
+    vertical-align: -1px;
+  }
+
+  /* Tabla/menú hacker: columnas más compactas */
+  .panel .grid.grid-cols-\[auto,1fr,auto\] {
+    grid-template-columns: 1fr;      /* todo en 1 columna */
+  }
+  .panel .grid.grid-cols-\[auto,1fr,auto\] > * + * {
+    margin-top: 0.35rem;             /* espaciado vertical entre filas internas */
+  }
+
+  /* Prose (markdown): cómoda en móvil */
+  .prose { font-size: 0.95rem; }
+  .prose :where(p, li) { line-height: 1.55; }
+}
+
+/* Accesibilidad: respeta usuarios con 'reduced motion' */
+@media (prefers-reduced-motion: reduce) {
+  .cursor, .rt-cursor { animation: none !important; opacity: 1; }
+  .glitch { text-shadow: none; }
 }

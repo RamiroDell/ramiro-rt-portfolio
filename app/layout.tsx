@@ -1,35 +1,36 @@
-import type { Metadata } from "next";
 import "./globals.css";
+import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
-import { site } from "@/data/site";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ConsoleHint from "@/components/ConsoleHint"; // 👈 pista secreta en consola
 
 const jetbrains = JetBrains_Mono({
   subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
-  display: "swap"
+  variable: "--font-jetbrains",
 });
 
 export const metadata: Metadata = {
-  title: `${site.name} — Red Team Portfolio`,
-  description: site.meta.description,
-  openGraph: {
-    title: `${site.name} — Red Team Portfolio`,
-    description: site.meta.description,
-    images: [site.meta.ogImage],
-  },
-  icons: {
-    icon: "/favicon.svg",
-  },
+  title: "Ramiro Dell'Orto - Red Team Portfolio",
+  description: "Portfolio ofensivo estilo hacker // Red Team & Pentesting",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className="dark">
+    <html lang="es" className="dark" suppressHydrationWarning>
       <body className={`${jetbrains.variable} min-h-screen flex flex-col`}>
+        {/* 👇 Pista secreta en consola (access: /root | pass: ramiro) */}
+        <ConsoleHint />
+
+        {/* Header global */}
         <Header />
-        <main className="flex-1 container mx-auto max-w-5xl px-4 py-8">{children}</main>
+
+        {/* Contenido principal */}
+        <main className="flex-1 container mx-auto max-w-5xl px-4 py-8">
+          {children}
+        </main>
+
+        {/* Footer global */}
         <Footer />
       </body>
     </html>

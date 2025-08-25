@@ -1,10 +1,10 @@
-### Ramiro Dell’Orto — Especialista en Red Team y Seguridad Ofensiva
+### Ramiro Dell’Orto — Hacker & Especialista en Red Team
 
-Analista de Ciberseguridad con **más de 3 años de experiencia** en Red Team, pentesting y ciberinteligencia.
-Especializado en **simulación de amenazas mapeadas a MITRE ATT&CK y PTES**, con foco en identificación proactiva de vulnerabilidades y **resiliencia corporativa**.
-Experiencia en entornos **académicos, corporativos y consultoría independiente**, con documentación técnica y **reporting ejecutivo** alineados a **NIST 800-115, OWASP y CIS**.
+Hacker especializado en **Red Teaming** y **Seguridad Ofensiva**, con más de **3 años de experiencia** en simulaciones de adversario, **pentesting avanzado** y **ciberinteligencia**.  
+Mi enfoque es 100% ofensivo: identificar vectores de ataque reales antes que lo haga un adversario, mapeando técnicas a **MITRE ATT&CK** y **PTES** para garantizar trazabilidad y realismo.
 
-- **Ubicación:** Corrientes, Argentina  
-- **Email:** ramirodellorto@gmail.com
+- **Core Skills:** Pentesting de aplicaciones web y paneles administrativos, explotación de IDOR, XSS, fuerza bruta, escalamiento de privilegios y ataques sobre control de accesos.  
+- **OSINT / Reconocimiento:** Uso intensivo de GHunt, Osintgram, Maltego y SpiderFoot para obtener inteligencia accionable.  
+- **Marcos y estándares:** MITRE ATT&CK, PTES, OWASP Top 10, NIST 800-115.  
 
-> Mantra: *“Threat-informed defense y disciplina operativa, siempre dentro del alcance autorizado.”*
+> *“Pienso como un atacante, actúo como un atacante — Hackear es mi forma de proteger.”*

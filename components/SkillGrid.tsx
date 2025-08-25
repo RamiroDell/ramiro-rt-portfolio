@@ -20,7 +20,7 @@ export default function SkillGrid() {
     {
       icon: Cog,
       title: "Plataformas / Marcos",
-      items: ["Kali Linux (experto)", "Windows Server", "Linux", "MITRE ATT&CK", "PTES", "OWASP ASVS", "CIS Controls"]
+      items: ["Windows Server", "Linux", "MITRE ATT&CK", "PTES", "OWASP ASVS", "CIS Controls"]
     }
   ] as const;
 

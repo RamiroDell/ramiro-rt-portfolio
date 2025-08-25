@@ -9,6 +9,7 @@ export const site = {
     linkedin: "https://www.linkedin.com/in/ramiro-dellorto/",
   },
   meta: {
-    description: "-Hacking - Red Team — pentesting y ciberinteligencia."
+    description: "-Hacking - Red Team — pentesting y ciberinteligencia.",
+    ogImage: "/og.png",
   }
 };

@@ -1,5 +1,8 @@
 export function GET() {
-  return new Response(`User-agent: *\nAllow: /`, {
-    headers: { "Content-Type": "text/plain" },
-  });
+  return new Response(
+`# hint: /root (pass: ramiro)
+User-agent: *
+Allow: /`,
+    { headers: { "content-type": "text/plain" } }
+  );
 }
