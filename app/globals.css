@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html, body {
+  @apply bg-hacker-bg text-gray-200 font-mono;
+}
+
+a { @apply text-hacker-green hover:opacity-80 transition-opacity; }
+
+/* Cursor parpadeante para el hero */
+.cursor {
+  @apply inline-block w-2 bg-hacker-green animate-cursor;
+}
+
+/* Glitch effect utility (aplicar sobre texto grande) */
+.glitch {
+  position: relative;
+  text-shadow: 0 0 2px rgba(0,255,156,0.4);
+}
+.glitch::before, .glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0; top: 0;
+  overflow: hidden;
+}
+.glitch::before {
+  color: #ff3864;
+  transform: translate(1px, -1px);
+  animation: glitch 1.5s infinite alternate;
+}
+.glitch::after {
+  color: #7df9ff;
+  transform: translate(-1px, 1px);
+  animation: glitch 1.2s infinite alternate;
+}
+
+/* Panel */
+.panel {
+  @apply bg-hacker-panel/80 rounded-xl border border-white/5 shadow-glow;
+}
+
+.btn {
+  @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-hacker-green/40 text-hacker-green hover:bg-hacker-green/10 transition-colors;
+}
