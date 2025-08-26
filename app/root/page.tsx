@@ -18,7 +18,7 @@ const asciiLines = [
 const logsBase = [
   "[scanner] buscando vectores de acceso...",
   "[osint] pista encontrada en robots.txt",
-  "[console] hint: access /root | pass: ramiro",
+  "[console] hint: access /root | pass: minombre",
   "[shell] preparando superficie de ataque...",
   "[rt] elevando privilegios visuales...",
 ];
